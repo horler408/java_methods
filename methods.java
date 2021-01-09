@@ -248,3 +248,73 @@ static void displayAssertionAge() {
         }
 	System.out.println(item+ " appears " +count+ " times");; 
     }
+
+static void playGame() {
+        Scanner s = new Scanner(System.in);
+        int key = new Random().nextInt(9) + 1;
+        int tries = 1, score = 0;
+        String t = "";
+        boolean b = true;
+        
+        System.out.println("Get 100 score to win");
+//        Thread.sleep(2000) throws InterruptedException;
+        try {
+            Thread.sleep(2000);
+        }catch(InterruptedException err){
+            System.out.println((err));
+        }
+        
+        System.out.println("Get a number from 0 to 9");
+        while(score < 100){
+            System.out.println(t);
+            t = "try again";
+            
+            if(s.nextInt() == key) {
+                if(tries == 1){
+                    t = "Excellent";
+                    score += 40;
+                }else if(tries == 2) {
+                    t = "Nice";
+                    score += 20;
+                }else if(tries == 3) {
+                    t = "Awesome";
+                    score += 10;
+                }else if(tries == 4) {
+                    t = "Good";
+                    score += 5;
+                }else if(tries < 8) {
+                    t = "Not bad";
+                    score += 2;
+                }else if(tries < 15) {
+                    t = "oops";
+                    score -= 20;
+                }else {
+                    t = "Bad";
+                    score -= 90;
+                }
+                
+                score = Math.max(0, score);
+                System.out.println("\n Got it with " +tries+ (tries > 1? " tries":"try")+ ": " +t);
+                System.out.println("Score: " +score+ "\n");
+                tries = 0;
+                
+                try {
+                    Thread.sleep(2000);
+                }catch(InterruptedException err){
+                    System.out.println((err));
+                }
+                
+                if(score == 0) {
+                    System.out.println("Game Over");
+                    b = false;
+                    break;
+                }
+                key = new Random().nextInt(9)+1;
+                t = "Guess a number again";
+            }
+            tries++;
+        }
+        if(b){
+            System.out.println("You win!");
+        }
+    }
